@@ -1,0 +1,18 @@
+#This service is going to expose the voting app to the external world through a load-balancer
+apiVersion: v1 #String
+kind: Service #String
+metadata: #Dictionary
+    name: voting-service
+    labels: #Dictionary within a dictionary
+      name: voting-service
+      app: demo-voting-app
+
+spec:
+    type: LoadBalancer
+    ports: #List/Array
+        - targetPort: 80 #optional-default is same as Port
+          port: 80 #mandatory
+
+    selector: #under selector we provide a list of filters to match pod labels
+        app: demo-voting-app #from the pods that you want the service to connect to
+        name: voting-app-pod #from the pods that you want the service to connect to

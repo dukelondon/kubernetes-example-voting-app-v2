@@ -1,0 +1,17 @@
+apiVersion: v1 #String
+kind: Service #String
+metadata: #Dictionary
+    name: db #this is the name that the worker app will try to connect to
+    labels: #Dictionary within a dictionary
+      name: db-service
+      app: demo-voting-app
+
+spec:
+#   type: ClusterIP  not needed because it's the default type
+    ports: #List/Array
+        - targetPort: 5432 #optional-default is same as Port
+          port: 5432 #mandatory
+
+    selector: #under selector we provide a list of filters to match pod labels
+        app: demo-voting-app #from the pods that you want the service to connect to
+        name: postgres-pod #from the pods that you want the service to connect to

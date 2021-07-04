@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  labels:
+    app: demo-voting-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo-voting-app
+      name: redis-pod
+  template:
+    metadata: #Dictionary
+      name: redis-pod
+      labels: #Dictionary within the metadata dictionary
+        app: demo-voting-app
+        name: redis-pod
+
+    spec:
+      containers: #List/Array
+        - name: redis
+          image: redis
+          ports:
+            - containerPort: 6379 #default port that Redis exposes
